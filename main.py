@@ -16,7 +16,7 @@ class ResearchResponse(BaseModel):
     tools_used: list[str]
     
 
-llm = ChatNVIDIA(model = "nvidia/llama-3.1-nemotron-nano-4b-v1.1")
+llm = ChatNVIDIA(model = "qwen/qwen3-235b-a22b")
 parser = PydanticOutputParser(pydantic_object = ResearchResponse)
 
 prompt = ChatPromptTemplate.from_messages(
@@ -38,7 +38,8 @@ prompt = ChatPromptTemplate.from_messages(
 
 #init agent and tools
 #tools = []
-tools = [search_tool, wiki_tool, save_tool]
+#tools = [search_tool, wiki_tool, save_tool]
+tools = [search_tool]
 
 agent = create_tool_calling_agent(
     llm=llm,
