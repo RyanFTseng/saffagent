@@ -1,11 +1,21 @@
 # Saffagent
 
+
 Custom llm agent workflow for handling user queries with context persistence using the Qwen3 LLM.
 
+
 Agent Nodes:
+
+
 Summarizer - Summarizes previous conversations in chat history for other agents.
+
+
 Classifier - Classifies current query into for the router to direct to the appropriate agent.
+
+
 Logical -  Responds to logic-based queries sent by classifier.
+
+
 Therapist - Responds to emotional-based queries sent by classifier.
 
 
