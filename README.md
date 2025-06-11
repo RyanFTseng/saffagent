@@ -1,7 +1,7 @@
 # Saffagent
 
 
-Custom llm agent workflow for handling user queries with context persistence using the Qwen3 LLM.
+Custom LLM agent workflow for handling user queries with context persistence using the Qwen3 LLM.
 
 
 Agent Nodes:
