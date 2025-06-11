@@ -14,17 +14,23 @@ from typing_extensions import TypedDict
 load_dotenv()
 
 
-       
+def log(text):
+    with open("log.txt", "a") as f:
+        f.write(text + "\n")
+    f = open("log.txt", "r")
+    f.close()
+
 class ResearchResponse(BaseModel):
     topic: str
     summary: str
     source: list[str]
     tools_used: list[str]
 
+#tools = [search_tool, wiki_tool, save_tool]
 llm = init_chat_model("qwen/qwen3-235b-a22b", model_provider = 'nvidia')
 parser = PydanticOutputParser(pydantic_object = ResearchResponse)
 
-
+#llm.bind_tools(tools)
 
 #State to classify message into 2 states
 class MessageClassifier(BaseModel):
@@ -140,6 +146,8 @@ def logical_agent(state: State):
     #prompt setup
     return {"messages": [{"role": "assistant", "content" : reply.content}]}
 
+
+
 #init graph builder using state
 graph_builder = StateGraph(State)
 #add nodes
@@ -166,13 +174,18 @@ graph_builder.add_edge("logical", END)
 #compile graph
 graph = graph_builder.compile()
 
+
+
+
+
 def run_chatbot():
     #initialize state
     state = {"messages": [], "message_type": None}
-    
+
     while True:
         #get user input
-        user_input = input("Message: ")
+        user_input = input("User Message: ")
+
         #user controlled exit
         if user_input  == "exit":
             print("Bye")
@@ -189,6 +202,8 @@ def run_chatbot():
         #print messages in state added by llm/user
         if state.get("messages") and len(state["messages"]) >0:
             last_message = state["messages"][-1]
+            log("User Message" + user_input)
+            log(f"Assistant: {last_message.content}")
             print(f"Assistant: {last_message.content}")
 
 
