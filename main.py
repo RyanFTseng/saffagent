@@ -14,11 +14,21 @@ from typing_extensions import TypedDict
 load_dotenv()
 
 
-def log(text):
-    with open("log.txt", "a") as f:
+def log(text, file_name):
+    with open(file_name, "a") as f:
         f.write(text + "\n")
-    f = open("log.txt", "r")
+    f = open(file_name, "r")
     f.close()
+
+def clear_log(file_name):
+    with open(file_name, "w") as f:
+        f.write('')
+    f.close()
+
+def read_log():
+    with open("log.txt") as f:
+        log = f.read()
+    return log
 
 class ResearchResponse(BaseModel):
     topic: str
@@ -46,6 +56,32 @@ class State(TypedDict):
     #return type
     message_type: str | None
     
+#Summary agent
+def summary_agent(state: State):
+    #obtain user input
+    last_message = state["messages"][-1]
+    clear_log("summary.txt")      
+    #prompt setup
+    messages = [
+            {   
+                "role": "system",
+                "content": """You are an assistant for summarizing chat history. 
+                Only respond with the current query if the log is empty.
+                Lines starting with "User Message" indicate a message by the user and lines starting with "Assistant" indicate a previous message from you.
+                Please summarize the following log in 50 words or less.
+                After summarizing, please repeat what the user is currently querying in the following format: "Current query:" +  Query.
+                """
+            },
+            {
+                "role": "user",
+                "content": read_log() + " " + last_message.content
+            }
+        ]
+    #call llm with prompt
+    reply = llm.invoke(messages)
+    log(reply.content, "summary.txt")
+    #prompt setup
+    return {"messages": [{"role": "assistant", "content" : reply.content}]}
 
 #classfier node
 #provides llm with prompt to classify user message and get either emotional or logical in response
@@ -95,6 +131,10 @@ def router(state: State):
     return {"next": "logical"}
 
 
+
+
+
+
 #emotional agent
 def therapist_agent(state: State):
     #obtain user input
@@ -108,7 +148,9 @@ def therapist_agent(state: State):
                                             You are a compassionate therapist. Focus on the emotional aspects of the user's message.
                                             Show empathy, validate their feelings, and help them process their emotions.
                                             Ask thoughtful questions to help them explore their feelings more deeply.
-                                            Avoid giving logical solutions unless explicitly asked."""
+                                            Avoid giving logical solutions unless explicitly asked.
+                                            You are provided with a summary of previous messages and the current message.
+                                            """
             },
             {
                 "role": "user",
@@ -151,6 +193,7 @@ def logical_agent(state: State):
 #init graph builder using state
 graph_builder = StateGraph(State)
 #add nodes
+graph_builder.add_node("summarizer", summary_agent)
 graph_builder.add_node("classifier", classify_message)
 graph_builder.add_node("router", router)
 graph_builder.add_node("therapist", therapist_agent)
@@ -158,7 +201,8 @@ graph_builder.add_node("logical", logical_agent)
 
 
 #connect nodes using edges
-graph_builder.add_edge(START, "classifier")
+graph_builder.add_edge(START, "summarizer")
+graph_builder.add_edge("summarizer", "classifier")
 graph_builder.add_edge("classifier", "router")
 graph_builder.add_conditional_edges(
     "router",
@@ -175,9 +219,6 @@ graph_builder.add_edge("logical", END)
 graph = graph_builder.compile()
 
 
-
-
-
 def run_chatbot():
     #initialize state
     state = {"messages": [], "message_type": None}
@@ -191,6 +232,11 @@ def run_chatbot():
             print("Bye")
             break
 
+        if user_input == "clear":
+            clear_log("log.txt")
+            print("Chat log cleared")
+            user_input = input("User Message: ")
+
         #add user message to state
         state["messages"] = state.get("messages", []) + [
             {"role": "user", "content": user_input}
@@ -202,8 +248,8 @@ def run_chatbot():
         #print messages in state added by llm/user
         if state.get("messages") and len(state["messages"]) >0:
             last_message = state["messages"][-1]
-            log("User Message" + user_input)
-            log(f"Assistant: {last_message.content}")
+            log("User Message: " + user_input, "log.txt")
+            log(f"Assistant: {last_message.content}", "log.txt")
             print(f"Assistant: {last_message.content}")
 
 
