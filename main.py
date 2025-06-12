@@ -13,23 +13,38 @@ from typing_extensions import TypedDict
 
 load_dotenv()
 
+max_log_queries = 3;
 
+#text functions
 def log(text, file_name):
-    with open(file_name, "a") as f:
+    with open(file_name, "a", encoding = "utf-8") as f:
         f.write(text + "\n")
     f = open(file_name, "r")
     f.close()
 
 def clear_log(file_name):
-    with open(file_name, "w") as f:
+    with open(file_name, "w", encoding = "utf-8") as f:
         f.write('')
     f.close()
 
 def read_log():
-    with open("log.txt") as f:
+    with open("log.txt", "r+",encoding = "utf-8") as f:
+        #check if chat history exceeds 5 queries
+        #delete first query in chat history if exceeded
+        lines = f.readlines()
+        if lines.count("---\n") >= max_log_queries:
+            first = lines.index("---\n")
+            lines = lines[first+1:]
+            f.seek(0)
+            f.writelines(lines)
+            f.truncate()
+        f.seek(0)
         log = f.read()
+        f.close()
     return log
 
+
+#llm class
 class ResearchResponse(BaseModel):
     topic: str
     summary: str
@@ -65,10 +80,10 @@ def summary_agent(state: State):
     messages = [
             {   
                 "role": "system",
-                "content": """You are an assistant for summarizing chat history. 
+                "content": """You are an assistant solely for summarizing chat history. Do not answer the current query. 
                 Only respond with the current query if the log is empty.
-                Lines starting with "User Message" indicate a message by the user and lines starting with "Assistant" indicate a previous message from you.
-                Please summarize the following log in 50 words or less.
+                Lines starting with "User Message" indicate a message by the user and lines starting with "Assistant" indicate a previous agent message.
+                Please summarize the following log and include context from all queries in the chat history.
                 After summarizing, please repeat what the user is currently querying in the following format: "Current query:" +  Query.
                 """
             },
@@ -105,7 +120,7 @@ def classify_message(state: State):
     result = classifier_llm.invoke([
         {
             "role": "system",
-            "content": """Classify the user message as either:
+            "content": """Classify the current query as either:
             - 'emotional': if it asks for emotional support, therapy, deals with feelings, or personal problems
             - 'logical': if it asks for facts, information, logical analysis, or practical solutions
             You must respond with a JSON object matching this format:
@@ -149,7 +164,8 @@ def therapist_agent(state: State):
                                             Show empathy, validate their feelings, and help them process their emotions.
                                             Ask thoughtful questions to help them explore their feelings more deeply.
                                             Avoid giving logical solutions unless explicitly asked.
-                                            You are provided with a summary of previous messages and the current message.
+                                            You are provided with a summary of previous messages and the current query.
+                                            Please take into consideration both the summary and current query and respond accordingly.
                                             """
             },
             {
@@ -176,7 +192,11 @@ def logical_agent(state: State):
                 "content": """You are a purely logical assistant. Focus only on facts and information.
                               Provide clear, concise answers based on logic and evidence.
                               Do not address emotions or provide emotional support.
-                              Be direct and straightforward in your responses."""
+                              Be direct and straightforward in your responses.
+                              You are provided with a summary of previous messages and the current query.
+                              Please take into consideration both the summary and current query and respond accordingly.
+                            """
+                              
             },
             {
                 "role": "user",
@@ -250,6 +270,7 @@ def run_chatbot():
             last_message = state["messages"][-1]
             log("User Message: " + user_input, "log.txt")
             log(f"Assistant: {last_message.content}", "log.txt")
+            log("---\n", "log.txt")
             print(f"Assistant: {last_message.content}")
 
 
