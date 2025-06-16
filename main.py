@@ -248,10 +248,13 @@ class ChatRequest(BaseModel):
 
 chat_state = {"messages": [], "message_type": None}
 
-@app.post("/chat")
-def chat(request: ChatRequest):
+@app.get("/")
+def root():
+    return {"wah wah": "world"}
+
+@app.post("/agent")
+def agent(request: ChatRequest):
     user_input = request.message
-    print(f"User: {user_input}\nAssistant: {last_message.content}")
 
     if user_input == "clear":
         clear_log("log.txt")
