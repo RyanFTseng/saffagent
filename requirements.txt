@@ -7,3 +7,6 @@ langchain-nvidia-ai-endpoints
 python-dotenv
 pydantic
 duckduckgo-search
+uvicorn
+langgraph
+fastapi

@@ -10,8 +10,13 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langchain.chat_models import init_chat_model
 from typing_extensions import TypedDict
+from fastapi import FastAPI
+
+
 
 load_dotenv()
+
+
 
 max_log_queries = 3;
 
@@ -19,8 +24,6 @@ max_log_queries = 3;
 def log(text, file_name):
     with open(file_name, "a", encoding = "utf-8") as f:
         f.write(text + "\n")
-    f = open(file_name, "r")
-    f.close()
 
 def clear_log(file_name):
     with open(file_name, "w", encoding = "utf-8") as f:
@@ -140,7 +143,7 @@ def classify_message(state: State):
 
 #pass message to appropriate llm
 def router(state: State):
-    message_type = state.get("message type", "logical")#default to logical
+    message_type = state.get("message_type", "logical")#default to logical
     if message_type == "emotional":
         return {"next": "therapist"}
     return {"next": "logical"}
@@ -238,7 +241,41 @@ graph_builder.add_edge("logical", END)
 #compile graph
 graph = graph_builder.compile()
 
+app = FastAPI()
 
+class ChatRequest(BaseModel):
+    message: str
+
+chat_state = {"messages": [], "message_type": None}
+
+@app.post("/chat")
+def chat(request: ChatRequest):
+    user_input = request.message
+    print(f"User: {user_input}\nAssistant: {last_message.content}")
+
+    if user_input == "clear":
+        clear_log("log.txt")
+        return {"response": "Chat log cleared."}
+
+    chat_state["messages"] = chat_state.get("messages", []) + [
+        {"role": "user", "content": user_input}
+    ]
+
+    new_state = graph.invoke(chat_state)
+    chat_state.update(new_state)
+
+    if new_state.get("messages"):
+        last_message = new_state["messages"][-1]
+        log("User Message: " + user_input, "log.txt")
+        log(f"Assistant: {last_message.content}", "log.txt")
+        log("---\n", "log.txt")
+        return {"response": last_message.content}
+                                                    
+    return {"response": "No response generated."}
+
+
+
+'''
 def run_chatbot():
     #initialize state
     state = {"messages": [], "message_type": None}
@@ -275,10 +312,12 @@ def run_chatbot():
 
 
 
+
+
 if __name__ == "__main__":
     run_chatbot()
 
-
+'''
 
 '''
 prompt = ChatPromptTemplate.from_messages(
