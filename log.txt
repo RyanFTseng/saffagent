@@ -1,33 +1,3 @@
-User Message: what are some sheep breeds?
-Assistant: Sheep breeds are categorized by purpose (meat, wool, dairy, or dual/multi-use). Here are notable examples:
-
-### **Meat Breeds**  
-- **Suffolk**: Largest and most common meat breed; muscular, white-faced, fast-growing.  
-- **Dorset** (Horned/Hornless): Hardy, adaptable, produces lean meat year-round.  
-- **Hampshire**: Black-faced, heavily muscled, efficient for meat production.  
-- **Texel**: Originating in the Netherlands, known for lean, tender meat and hardiness.  
-
-### **Wool Breeds**  
-- **Merino**: Finest wool; heat-tolerant, raised globally (e.g., Australia, Spain).  
-- **Rambouillet**: Derived from Merinos in France; larger, with high-quality wool and good meat.  
-- **Corriedale**: Dual-purpose (wool/meat), from New Zealand/Australia; docile, medium-wool breed.  
-- **Columbia**: U.S.-developed, combines Rambouillet and Lincoln traits for wool and meat.  
-
-### **Dairy Breeds**  
-- **East Friesian**: High milk yield; from Germany, often crossbred for dairy flocks.  
-
-### **Dual/Multi-Use Breeds**  
-- **Shetland**: Small, hardy (Scotland); coarse wool, meat, and milk.  
-- **Icelandic**: Double coat (wool/meat), thrives in cold climates.  
-- **Romanov**: High fertility (multiple births), meat-focused (Russia).  
-- **Leicester Longwool**: Long, lustrous wool; also used for meat.  
-
-### **Crossbreeds**  
-- **Blackface** (e.g., Scottish Blackface + Cheviot): Hardy upland grazing breeds.  
-- **Commercial Crosses** (e.g., Suffolk × East Friesian): Combine meat/milk traits for efficiency.  
-
-This classification reflects adaptations to environments and human breeding goals. Specific traits vary by region and management practices.
----
 
 User Message: please give the game of 1 pokemon
 Assistant: The phrase "game of 1 Pokémon" is ambiguous, but here are possible interpretations based on official Pokémon games:

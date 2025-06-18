@@ -10,3 +10,5 @@ duckduckgo-search
 uvicorn
 langgraph
 fastapi
+langchain-google-vertexai
+google-generativeai

@@ -1,3 +1,0 @@
-Texas is a state in the southern region of the United States, bordered by Louisiana to the east, Arkansas to the northeast, Oklahoma to the north, New Mexico to the west, and Mexico (Chihuahua, Coahuila, Nuevo León, Tamaulipas) to the southwest. It is the second-largest U.S. state by area and population, known for its diverse geography, including coastal plains, deserts, and urban hubs like Houston, Dallas, and the capital, Austin.
-
-Current query: where is texas?

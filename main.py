@@ -11,14 +11,17 @@ from langgraph.graph.message import add_messages
 from langchain.chat_models import init_chat_model
 from typing_extensions import TypedDict
 from fastapi import FastAPI
+from google.cloud import aiplatform
+import os
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/rtsen/Desktop/saffagent/saffagent/keys/platinum-region-326501-79b609867c95.json"
 
 
 load_dotenv()
 
 
 
-max_log_queries = 3;
+MAX_LOG_QUERIES = 3;
 
 #text functions
 def log(text, file_name):
@@ -35,7 +38,7 @@ def read_log():
         #check if chat history exceeds 5 queries
         #delete first query in chat history if exceeded
         lines = f.readlines()
-        if lines.count("---\n") >= max_log_queries:
+        if lines.count("---\n") >= MAX_LOG_QUERIES:
             first = lines.index("---\n")
             lines = lines[first+1:]
             f.seek(0)
@@ -47,6 +50,8 @@ def read_log():
     return log
 
 
+aiplatform.init(project="911017714052", location="us-west1")
+
 #llm class
 class ResearchResponse(BaseModel):
     topic: str
@@ -55,7 +60,7 @@ class ResearchResponse(BaseModel):
     tools_used: list[str]
 
 #tools = [search_tool, wiki_tool, save_tool]
-llm = init_chat_model("qwen/qwen3-235b-a22b", model_provider = 'nvidia')
+llm = init_chat_model("google_vertexai:gemini-2.5-flash-preview-05-20", temperature=0)
 parser = PydanticOutputParser(pydantic_object = ResearchResponse)
 
 #llm.bind_tools(tools)
@@ -241,6 +246,7 @@ graph_builder.add_edge("logical", END)
 #compile graph
 graph = graph_builder.compile()
 
+'''
 app = FastAPI()
 
 class ChatRequest(BaseModel):
@@ -275,10 +281,10 @@ def agent(request: ChatRequest):
         return {"response": last_message.content}
                                                     
     return {"response": "No response generated."}
-
-
-
 '''
+
+
+
 def run_chatbot():
     #initialize state
     state = {"messages": [], "message_type": None}
@@ -320,7 +326,6 @@ def run_chatbot():
 if __name__ == "__main__":
     run_chatbot()
 
-'''
 
 '''
 prompt = ChatPromptTemplate.from_messages(
