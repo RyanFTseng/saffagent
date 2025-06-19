@@ -1,14 +1,10 @@
-# Start with Python
-FROM python:3.13.4
-# Set up workspace
+FROM python:3.13.4-alpine
 WORKDIR /app
 
-# Copy requirements first (Docker caching magic)
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-# Copy your agent code
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install --no-cache-dir -r requirements.txt
+
 COPY . .
-# Expose port for API
 EXPOSE 8000
-# Start your agent
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
