@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy requirements first (Docker caching magic)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 # Copy your agent code
 COPY . .
 # Expose port for API
