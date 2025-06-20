@@ -16,5 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Copy source
 COPY . .
 
+ENV GOOGLE_APPLICATION_CREDENTIALS="/keys/curious-system-463501-g0-17b4fb32c15b.json"
+
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
