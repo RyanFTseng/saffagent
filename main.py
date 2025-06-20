@@ -15,11 +15,9 @@ from google.cloud import aiplatform
 import os
 
 
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("C:\Users\rtsen\Desktop\saffagent\saffagent\keys\curious-system-463501-g0-17b4fb32c15b.json")
 load_dotenv()
 
-
+aiplatform.init(project="746472204967", location="us-west1")
 
 MAX_LOG_QUERIES = 3;
 
@@ -50,7 +48,7 @@ def read_log():
     return log
 
 
-aiplatform.init(project="911017714052", location="us-west1")
+
 
 #llm class
 class ResearchResponse(BaseModel):
@@ -60,7 +58,7 @@ class ResearchResponse(BaseModel):
     tools_used: list[str]
 
 #tools = [search_tool, wiki_tool, save_tool]
-llm = init_chat_model("google_vertexai:gemini-2.5-flash-preview-05-20", temperature=0)
+llm = init_chat_model("google_vertexai:gemini-2.5-flash", temperature=0)
 parser = PydanticOutputParser(pydantic_object = ResearchResponse)
 
 #llm.bind_tools(tools)

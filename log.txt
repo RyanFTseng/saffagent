@@ -1,2 +1,19 @@
 
 
+User Message: what is xenoblade?
+Assistant: Xenoblade is a series of science fantasy role-playing video games developed by Monolith Soft and published by Nintendo. The series is known for its expansive open-world environments, real-time action-based combat systems, and narrative focus.
+---
+
+User Message: what are some of its characters?
+Assistant: Characters from the Xenoblade series include:
+
+*   **Shulk** (Xenoblade Chronicles)
+*   **Fiora** (Xenoblade Chronicles)
+*   **Rex** (Xenoblade Chronicles 2)
+*   **Pyra** (Xenoblade Chronicles 2)
+*   **Nia** (Xenoblade Chronicles 2)
+*   **Noah** (Xenoblade Chronicles 3)
+*   **Mio** (Xenoblade Chronicles 3)
+*   **Elma** (Xenoblade Chronicles X)
+---
+
