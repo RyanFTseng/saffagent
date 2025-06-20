@@ -14,9 +14,9 @@ from fastapi import FastAPI
 from google.cloud import aiplatform
 import os
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("C:\Users\rtsen\Desktop\saffagent\saffagent\keys\curious-system-463501-g0-17b4fb32c15b.json")
 load_dotenv()
 
 

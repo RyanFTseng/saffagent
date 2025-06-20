@@ -1,12 +1,17 @@
-langchain 
-wikipedia 
-langchain-community 
-langchain-anthropic
-python-dotenv
-pydantic
-duckduckgo-search
-uvicorn
-langgraph
-fastapi
-langchain-google-vertexai
-google-generativeai
+# Core LangChain + ecosystem
+langchain==0.1.16
+langchain-community==0.0.35
+langchain-anthropic==0.1.6
+langchain-google-vertexai==1.0.3
+
+# Related frameworks
+langgraph==0.0.40
+fastapi==0.110.1
+uvicorn==0.29.0
+
+# Support utilities
+python-dotenv==1.0.1
+pydantic==2.6.4
+duckduckgo-search==4.4
+wikipedia==1.4.0
+google-generativeai==0.4.1
