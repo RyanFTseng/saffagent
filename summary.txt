@@ -1,3 +1,3 @@
-The user initially asked for a definition of Xenoblade, which was provided as a series of science fantasy role-playing video games known for open-world environments, real-time combat, and narrative focus. The user is now asking for some characters from the Xenoblade series.
+The user initially asked "what is xenoblade?". The assistant explained that Xenoblade is a series of science fantasy role-playing video games known for its open-world environments, real-time combat, and narrative focus. The user then asked "what are some of its characters?", and the assistant provided a list of characters from various Xenoblade games.
 
-Current query: what are some of its characters?
+Current query: I feel overwhelmed.

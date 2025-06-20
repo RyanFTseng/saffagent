@@ -17,3 +17,9 @@ Assistant: Characters from the Xenoblade series include:
 *   **Elma** (Xenoblade Chronicles X)
 ---
 
+User Message: I feel overwhelmed.
+Assistant: It sounds like you're feeling a lot right now, and that feeling of being overwhelmed can be incredibly heavy. I hear you, and I want you to know it's okay to feel that way.
+
+Sometimes, when we feel overwhelmed, it can be hard to even pinpoint what's causing it, or it might feel like a jumble of many things. Would you like to share a little more about what's contributing to this feeling for you right now? There's no pressure, but I'm here to listen if you'd like to talk about it.
+---
+

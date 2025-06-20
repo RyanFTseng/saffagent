@@ -244,7 +244,7 @@ graph_builder.add_edge("logical", END)
 #compile graph
 graph = graph_builder.compile()
 
-'''
+
 app = FastAPI()
 
 class ChatRequest(BaseModel):
@@ -279,10 +279,9 @@ def agent(request: ChatRequest):
         return {"response": last_message.content}
                                                     
     return {"response": "No response generated."}
+
+
 '''
-
-
-
 def run_chatbot():
     #initialize state
     state = {"messages": [], "message_type": None}
@@ -323,7 +322,7 @@ def run_chatbot():
 
 if __name__ == "__main__":
     run_chatbot()
-
+'''
 
 '''
 prompt = ChatPromptTemplate.from_messages(
