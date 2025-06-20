@@ -1,28 +1,4 @@
-
-User Message: what are some of its characters?
-Assistant: Characters from the Xenoblade series include:
-
-*   **Shulk** (Xenoblade Chronicles)
-*   **Fiora** (Xenoblade Chronicles)
-*   **Rex** (Xenoblade Chronicles 2)
-*   **Pyra** (Xenoblade Chronicles 2)
-*   **Nia** (Xenoblade Chronicles 2)
-*   **Noah** (Xenoblade Chronicles 3)
-*   **Mio** (Xenoblade Chronicles 3)
-*   **Elma** (Xenoblade Chronicles X)
----
-
-User Message: I feel overwhelmed.
-Assistant: It sounds like you're feeling a lot right now, and that feeling of being overwhelmed can be incredibly heavy. I hear you, and I want you to know it's okay to feel that way.
-
-Sometimes, when we feel overwhelmed, it can be hard to even pinpoint what's causing it, or it might feel like a jumble of many things. Would you like to share a little more about what's contributing to this feeling for you right now? There's no pressure, but I'm here to listen if you'd like to talk about it.
----
-
-User Message: I feel overwhelmed.
-Assistant: It sounds like that feeling of being overwhelmed is still very much with you, and perhaps even feeling quite heavy right now. I'm truly sorry to hear you're still feeling this way.
-
-It takes a lot of courage to keep voicing that, and I want you to know I'm here to listen, without judgment.
-
-Sometimes, when we feel overwhelmed, it can be hard to even pinpoint what's contributing to it, or it might feel like a lot of different things at once. If you feel up to it, would you like to share a little more about what that overwhelm feels like for you right now? No pressure at all, just if you feel it might help to put words to it.
+User Message: What is apple pie?
+Assistant: Apple pie is a baked dessert consisting of a pastry crust filled with sliced apples, typically sweetened and spiced.
 ---
 
