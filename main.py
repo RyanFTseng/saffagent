@@ -1,26 +1,33 @@
-from agents import graph, BaseModel
+from agents import graph, ChatRequest
 from text_funcs import  log, clear_log
-from fastapi import FastAPI
+from auth.throttling import apply_rate_limit
+from auth.dependencies import get_user_identifier
+from fastapi import Depends, FastAPI
 
+
+#uvicorn main:app --reload
+
+#init app
 app = FastAPI()
 
-class ChatRequest(BaseModel):
-    message: str
 
+#dict to track user messages
 chat_state = {"messages": [], "message_type": None}
 
 @app.get("/")
-def root():
-    return {"wah wah": "world"}
+async def root():
+    return {"app: running"}
 
 @app.post("/agent")
-def agent(request: ChatRequest):
+async def agent(request: ChatRequest, user_id: str = Depends(get_user_identifier)):
+    apply_rate_limit(user_id)
     user_input = request.message
 
     if user_input == "clear":
         clear_log("log.txt")
         return {"response": "Chat log cleared."}
 
+    #add current query to message state
     chat_state["messages"] = chat_state.get("messages", []) + [
         {"role": "user", "content": user_input}
     ]
@@ -30,9 +37,8 @@ def agent(request: ChatRequest):
 
     if new_state.get("messages"):
         last_message = new_state["messages"][-1]
-        log("User Message: " + user_input, "log.txt")
-        log(f"Assistant: {last_message.content}", "log.txt")
-        log("---\n", "log.txt")
+        log(f"User Message: {user_input}\nAssistant: {last_message.content}\n---\n", "log.txt")
+
         return {"response": last_message.content}
                                                     
     return {"response": "No response generated."}
@@ -42,46 +48,3 @@ def agent(request: ChatRequest):
 
 
 
-#local run
-'''
-def run_chatbot():
-    #initialize state
-    state = {"messages": [], "message_type": None}
-
-    while True:
-        #get user input
-        user_input = input("User Message: ")
-
-        #user controlled exit
-        if user_input  == "exit":
-            print("Bye")
-            break
-
-        if user_input == "clear":
-            clear_log("log.txt")
-            print("Chat log cleared")
-            user_input = input("User Message: ")
-
-        #add user message to state
-        state["messages"] = state.get("messages", []) + [
-            {"role": "user", "content": user_input}
-            ]
-
-        #call llm using state
-        state =graph.invoke(state)
-
-        #print messages in state added by llm/user
-        if state.get("messages") and len(state["messages"]) >0:
-            last_message = state["messages"][-1]
-            log("User Message: " + user_input, "log.txt")
-            log(f"Assistant: {last_message.content}", "log.txt")
-            log("---\n", "log.txt")
-            print(f"Assistant: {last_message.content}")
-
-
-
-
-
-if __name__ == "__main__":
-    run_chatbot()
-'''

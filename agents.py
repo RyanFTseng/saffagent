@@ -1,9 +1,7 @@
 
 from dotenv import load_dotenv
 from pydantic import BaseModel , Field
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
-from langchain.agents import create_tool_calling_agent, AgentExecutor
 from tools import search_tool, wiki_tool, save_tool
 from typing import Annotated, Literal
 from langgraph.graph import StateGraph, START, END
@@ -11,30 +9,53 @@ from langgraph.graph.message import add_messages
 from langchain.chat_models import init_chat_model
 from google.cloud import aiplatform
 from typing_extensions import TypedDict
-import os
 from text_funcs import log, clear_log, read_log
-
+from abc import ABC, abstractmethod
 
 load_dotenv()
-
 aiplatform.init(project="746472204967", location="us-west1")
 
+#load agent prompts
+def load_system_prompt(prompt_file):
+    with open("prompts/" + prompt_file, "r") as f:
+        return f.read()
 
-
-#llm class
+classifier_prompt = load_system_prompt("prompt_classifier.md")
+logical_prompt = load_system_prompt("prompt_logical.md")
+summary_prompt = load_system_prompt("prompt_summary.md")
+therapist_prompt = load_system_prompt("prompt_therapist.md")
+ 
+#Pydantic output 
 class ResearchResponse(BaseModel):
     topic: str
     summary: str
     source: list[str]
     tools_used: list[str]
 
-#tools = [search_tool, wiki_tool, save_tool]
+#Pydantic input
+class ChatRequest(BaseModel):
+    message: str
+
+#load llm model
 llm = init_chat_model("google_vertexai:gemini-2.5-flash", temperature=0)
+#init output parser
 parser = PydanticOutputParser(pydantic_object = ResearchResponse)
 
+#tools = [search_tool, wiki_tool, save_tool]
 #llm.bind_tools(tools)
 
-#State to classify message into 2 states
+#Nested dictionary to store to classified message 
+#Example:
+#state = {
+#    "messages": [
+#       {"role": "user", 
+#       "content": "Hi"},
+#       {"role": "assistant", 
+#       "content": "Hello! How can I help?"}
+#   ]
+#   "message_type": "logical"
+#
+
 class MessageClassifier(BaseModel):
     #force message type to be "emotional" or "logical"
     message_type: Literal ["emotional", "logical"] = Field(
@@ -42,7 +63,7 @@ class MessageClassifier(BaseModel):
         description="Classify if the message requires emotional or logical response"
     )
 
-#State with list of messages, updates after each node in graph
+#State class with list of messages, updates after each node in graph
 class State(TypedDict):
     messages: Annotated[list, add_messages]
     #return type
@@ -57,12 +78,7 @@ def summary_agent(state: State):
     messages = [
             {   
                 "role": "system",
-                "content": """You are an assistant solely for summarizing chat history. Do not answer the current query. 
-                Only respond with the current query if the log is empty.
-                Lines starting with "User Message" indicate a message by the user and lines starting with "Assistant" indicate a previous agent message.
-                Please summarize the following log and include context from all queries in the chat history.
-                After summarizing, please repeat what the user is currently querying in the following format: "Current query:" +  Query.
-                """
+                "content": summary_prompt
             },
             {
                 "role": "user",
@@ -80,37 +96,18 @@ def summary_agent(state: State):
 def classify_message(state: State):
     last_message = state["messages"][-1]
     classifier_llm = llm.with_structured_output(MessageClassifier)
-    #combine prompt with user message
 
-
-
-    #view raw result for debugging
-    '''
-    raw_result = llm.invoke([
-    {"role": "system", "content": "Classify the user message as either:- 'emotional': if it asks for emotional support, therapy, deals with feelings, or personal problems- 'logical': if it asks for facts, information, logical analysis, or practical solutions"},
-    {"role": "user", "content": last_message.content}
-    ])
-
-    print("Raw LLM result:", raw_result)
-    '''
-
+    #prompt invoaation
     result = classifier_llm.invoke([
         {
             "role": "system",
-            "content": """Classify the current query as either:
-            - 'emotional': if it asks for emotional support, therapy, deals with feelings, or personal problems
-            - 'logical': if it asks for facts, information, logical analysis, or practical solutions
-            You must respond with a JSON object matching this format:
-                                            {
-                                              "message_type": "emotional" | "logical"
-                                            }
-            """
+            "content": classifier_prompt
             },
-            {"role": "user", "content": last_message.content}    #input user message
+            #combine with user message
+            {"role": "user", "content": last_message.content}    
         ])
-    #return either emotional or logical based on user input and llm response 
+    
     #updates messages in state
-
     print(result.message_type)
     return {"message_type": result.message_type}
 
@@ -122,11 +119,6 @@ def router(state: State):
         return {"next": "therapist"}
     return {"next": "logical"}
 
-
-
-
-
-
 #emotional agent
 def therapist_agent(state: State):
     #obtain user input
@@ -136,14 +128,7 @@ def therapist_agent(state: State):
     messages = [
             {   
                 "role": "system",
-                "content": """
-                                            You are a compassionate therapist. Focus on the emotional aspects of the user's message.
-                                            Show empathy, validate their feelings, and help them process their emotions.
-                                            Ask thoughtful questions to help them explore their feelings more deeply.
-                                            Avoid giving logical solutions unless explicitly asked.
-                                            You are provided with a summary of previous messages and the current query.
-                                            Please take into consideration both the summary and current query and respond accordingly.
-                                            """
+                "content": therapist_prompt
             },
             {
                 "role": "user",
@@ -166,13 +151,7 @@ def logical_agent(state: State):
     messages = [
             {   
                 "role": "system",
-                "content": """You are a purely logical assistant. Focus only on facts and information.
-                              Provide clear, concise answers based on logic and evidence.
-                              Do not address emotions or provide emotional support.
-                              Be direct and straightforward in your responses.
-                              You are provided with a summary of previous messages and the current query.
-                              Please take into consideration both the summary and current query and respond accordingly.
-                            """
+                "content": logical_prompt
                               
             },
             {
@@ -196,7 +175,6 @@ graph_builder.add_node("router", router)
 graph_builder.add_node("therapist", therapist_agent)
 graph_builder.add_node("logical", logical_agent)
 
-
 #connect nodes using edges
 graph_builder.add_edge(START, "summarizer")
 graph_builder.add_edge("summarizer", "classifier")
@@ -214,6 +192,3 @@ graph_builder.add_edge("logical", END)
 
 #compile graph
 graph = graph_builder.compile()
-
-
-

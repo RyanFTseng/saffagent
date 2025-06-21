@@ -13,7 +13,7 @@ def clear_log(file_name):
 
 def read_log():
     with open("log.txt", "r+",encoding = "utf-8") as f:
-        #check if chat history exceeds 5 queries
+        #check if chat history exceeds max log queries
         #delete first query in chat history if exceeded
         lines = f.readlines()
         if lines.count("---\n") >= MAX_LOG_QUERIES:
