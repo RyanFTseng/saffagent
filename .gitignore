@@ -1,0 +1,9 @@
+.venv
+.env
+venv
+.vs
+keys
+node_modules
+bin
+cdk.out
+test
