@@ -10,7 +10,6 @@ from langchain.chat_models import init_chat_model
 from google.cloud import aiplatform
 from typing_extensions import TypedDict
 from text_funcs import log, clear_log, read_log
-from abc import ABC, abstractmethod
 
 load_dotenv()
 aiplatform.init(project="746472204967", location="us-west1")

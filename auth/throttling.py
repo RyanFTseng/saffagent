@@ -17,7 +17,6 @@ GLOBAL_TIME_WINDOW_SECONDS = 60
 user_requests = defaultdict(list)
 
 def apply_rate_limit(user_id: str):
-    print(user_id)
     current_time = time.time()
     if user_id == "global_unauthenticated_user":
         rate_limit = GLOBAL_RATE_LIMIT
