@@ -1,14 +1,27 @@
-# Welcome to your CDK TypeScript project
+# Saffagent
 
-This is a blank project for CDK development with TypeScript.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+**Custom LLM agent workflow for handling user queries with context persistence using the Gemini 2.5 LLM.**
 
-## Useful commands
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+<ins> **Agent Nodes** </ins>
+
+
+Summarizer - Summarizes previous conversations in chat history for other agents.
+
+
+Classifier - Classifies current query into for the router to direct to the appropriate agent.
+
+
+Logical -  Responds to logic-based queries.
+
+
+Therapist - Responds to emotional-based queries.
+
+
+
+<ins> **Graph Structure** </ins>
+
+![image](https://github.com/user-attachments/assets/870a0c17-6d28-4d2d-98c7-5415aab7cca8)
+
+
