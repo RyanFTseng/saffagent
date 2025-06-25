@@ -1,8 +1,4 @@
 
-User Message: What about peach?
-Assistant: A peach is a deciduous tree fruit. It is characterized by its fuzzy skin, juicy flesh, and a single large central seed (pit). Peaches are typically round or oval, with a groove running down one side. They are known for their sweet flavor and are commonly consumed fresh or used in desserts and preserves.
----
-
 User Message: Can you make pie with it?
 Assistant: Yes, pie can be made with peaches.
 ---
@@ -63,5 +59,13 @@ Assistant: You're very welcome. I'm glad I could be of some help.
 Earlier, you mentioned feeling overwhelmed, and I just want to gently check in on that. Sometimes, even a small "thank you" can carry a lot of unspoken feelings.
 
 How are you feeling right now, in this moment? Is there anything you'd like to talk about regarding those feelings of being overwhelmed, or anything else that might be on your mind? Please know that it's perfectly okay to share whatever you're experiencing.
+---
+
+User Message: Hello!
+Assistant: Hello there. It's good to hear from you.
+
+I was just thinking about our last conversation, and how you mentioned feeling a bit overwhelmed earlier. I wanted to gently check in again. How are you feeling right now, in this moment?
+
+There's no pressure to share anything you're not ready for, but I'm here to listen if you'd like to talk about what's on your mind.
 ---
 

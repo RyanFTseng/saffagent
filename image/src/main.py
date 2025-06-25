@@ -10,7 +10,6 @@ from fastapi import Depends, FastAPI
 #init app
 app = FastAPI()
 
-
 #dict to track user messages
 chat_state = {"messages": [], "message_type": None}
 
