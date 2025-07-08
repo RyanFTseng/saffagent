@@ -19,8 +19,7 @@ import {
 export default function SubmitQueryForm() {
     const api = createApiClient();
     const userId = getSessionId();
-    const originalPlaceHolder: string =
-        "How much does a landing page cost to develop?";
+    const originalPlaceHolder: string = "Enter Query";
 
     const [query, setQuery] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,9 +28,12 @@ export default function SubmitQueryForm() {
     const submitForm = () => {
         const queryToSubmit = query || originalPlaceHolder;
         console.log(`Submitting query: ${queryToSubmit}`);
-        const request = { queryText: queryToSubmit, userId: userId };
-        const response = api.submitQueryEndpointSubmitQueryPost({
-            submitQueryRequest: request,
+        const request = { 
+            message: queryToSubmit, 
+            userId: userId 
+        };
+        const response = api.agentAgentPost({
+            chatRequest: request,
         });
 
         setIsSubmitting(true);
