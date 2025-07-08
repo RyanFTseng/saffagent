@@ -3,3 +3,5 @@
 venv
 .vs
 keys
+saffagent-frontend/node_modules
+node_modules
