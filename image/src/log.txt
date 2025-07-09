@@ -1,20 +1,4 @@
 
-User Message: I'm feeling overwhelmed right now
-Assistant: I hear you. It sounds like you're feeling overwhelmed right now, and I want you to know that it's completely understandable to feel that way. It takes a lot of courage to express that.
-
-Please know that it's okay to feel whatever you're feeling. There's no need to rush or explain anything unless you want to.
-
-If you feel up to it, would you like to share a little more about what that feeling of overwhelm is like for you right now? There's no pressure, just an open space if you'd like to explore it.
----
-
-User Message: what is granblue?
-Assistant: Granblue is a media franchise primarily known for its video games. The most prominent title is "Granblue Fantasy," a Japanese role-playing game developed by Cygames. The franchise also includes fighting games, action role-playing games, and anime adaptations.
----
-
-User Message: is djeeta from this game?
-Assistant: Yes, Djeeta is a character from the *Granblue Fantasy* game.
----
-
 User Message: What are some of her traits?
 Assistant: Djeeta is the female protagonist of *Granblue Fantasy*. Her traits include determination, loyalty to her crew, and a strong sense of justice. As a player character, her specific personality can be influenced by player choices, but she is generally depicted as a skilled and compassionate leader. Her primary objective is to reach Estalucia.
 ---
@@ -63,5 +47,36 @@ Assistant: Popular destinations in Wisconsin include:
 *   **Door County:** A peninsula known for its scenic coastline, cherry orchards, lighthouses, and charming towns.
 *   **Wisconsin Dells:** A popular tourist area known for its water parks and natural sandstone formations.
 *   **Lake Geneva:** A resort town known for its lake activities and historic estates.
+---
+
+User Message: What are some states near wisconsin?
+Assistant: States near Wisconsin include:
+*   Michigan
+*   Minnesota
+*   Iowa
+*   Illinois
+---
+
+User Message: What are some good food locations in los angeles?
+Assistant: Los Angeles offers diverse food locations. Consider:
+
+*   **Koreatown:** Numerous Korean BBQ restaurants, late-night eateries.
+*   **Grand Central Market (Downtown LA):** Various food stalls, diverse cuisines.
+*   **Little Tokyo:** Japanese restaurants, sushi, ramen.
+*   **Arts District (Downtown LA):** Trendy restaurants, breweries.
+*   **Santa Monica/Venice:** Beachside dining, seafood, casual eateries.
+*   **Melrose Avenue/Fairfax District:** Upscale dining, diverse culinary options.
+---
+
+User Message: do you have specific locations in koreatown?
+Assistant: Koreatown, Los Angeles, offers numerous specific food locations. Notable establishments include:
+
+*   **Kang Ho Dong Baekjeong:** Known for Korean BBQ.
+*   **BCD Tofu House:** Specializes in soondubu jjigae (soft tofu stew).
+*   **Park's BBQ:** Another highly-regarded Korean BBQ restaurant.
+*   **Guelaguetza:** Offers Oaxacan Mexican cuisine.
+*   **Hae Jang Chon:** All-you-can-eat Korean BBQ.
+*   **Dan Sung Sa:** A pocha (Korean pub) known for traditional Korean dishes and drinks.
+*   **Sun Nong Dan:** Famous for galbi jjim (braised short ribs) and other hearty stews.
 ---
 

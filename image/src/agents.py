@@ -9,6 +9,12 @@ from langchain.chat_models import init_chat_model
 from google.cloud import aiplatform
 from typing_extensions import TypedDict
 from text_funcs import log, clear_log, read_log
+from judgeval.common.tracer import Tracer
+from judgeval.scorers import AnswerRelevancyScorer, ExecutionOrderScorer, AnswerCorrectnessScorer
+from judgeval.data import Example
+
+
+judgment = Tracer(project_name="SaffAgent")
 
 load_dotenv()
 aiplatform.init(project="746472204967", location="us-west1")
@@ -86,6 +92,17 @@ def summary_agent(state: State):
     #call llm with prompt
     reply = llm.invoke(messages)
     log(reply.content, "summary.txt")
+    #eval
+    ans =  "popular dishes: 1. Chef's Special 2. Seafood Platter 3. Vegan Delight"
+    example = Example(
+        input="Get popular menu items for a restaurant",
+        actual_output=ans
+    )
+    judgment.async_evaluate(
+        scorers=[AnswerRelevancyScorer(threshold=1)],
+        example=example,
+        model = "gpt-4.1"
+    )
     #prompt setup
     return {"messages": [{"role": "assistant", "content" : reply.content}]}
 
