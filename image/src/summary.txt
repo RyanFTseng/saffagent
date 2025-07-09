@@ -1,9 +1,3 @@
-The conversation began with a discussion about making pie with peaches, then expanded to a general list of other fruits, and subsequently focused on popular fruits for making pie. The user then inquired about rhubarb, which was defined as a herbaceous perennial plant with an edible tart stalk, often used in pies.
+The user initially expressed feeling overwhelmed, which the assistant acknowledged and offered support for. The conversation then shifted to the user asking about "Granblue" and confirming if "Djeeta" is a character from the game, followed by a query about Djeeta's traits. After a "thank you" from the user, the assistant gently checked back on the user's earlier feeling of overwhelm. Subsequent messages involved greetings and the user confirming they were feeling "good." Most recently, the user asked about popular destinations in Utah.
 
-The user then expressed feeling overwhelmed, and the assistant offered support and an open space to discuss those feelings.
-
-The topic then shifted to the "Granblue" media franchise, specifically "Granblue Fantasy," and a character named Djeeta from that game, including her traits.
-
-After the Granblue discussion, the assistant circled back to the user's earlier statement about feeling overwhelmed, checking in on their current feelings.
-
-Current query: Hello!
+Current query: What about wisconsin?

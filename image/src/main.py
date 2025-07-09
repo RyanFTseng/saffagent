@@ -3,7 +3,12 @@ from text_funcs import  log, clear_log
 from auth.throttling import apply_rate_limit
 from auth.dependencies import get_user_identifier
 from fastapi import Depends, FastAPI
+import asyncio
+from judgeval.common.tracer import Tracer
+from judgeval.integrations.langgraph import JudgevalCallbackHandler
 
+judgment = Tracer(project_name="SaffAgent")
+handler = JudgevalCallbackHandler(judgment)
 
 #uvicorn main:app --reload
 
@@ -31,7 +36,14 @@ async def agent(request: ChatRequest, user_id: str = Depends(get_user_identifier
         {"role": "user", "content": user_input}
     ]
 
-    new_state = graph.invoke(chat_state)
+    config_with_callbacks = {"callbacks": [handler]}
+    
+    new_state = graph.invoke(chat_state, config = config_with_callbacks)
+
+    print("Executed Nodes:", handler.executed_nodes)
+    print("Executed Tools:", handler.executed_tools)
+    print("Node/Tool Flow:", handler.executed_node_tools)
+
     chat_state.update(new_state)
 
     if new_state.get("messages"):
@@ -41,6 +53,9 @@ async def agent(request: ChatRequest, user_id: str = Depends(get_user_identifier
         return {"response": last_message.content}
                                                     
     return {"response": "No response generated."}
+
+
+
 
 
 

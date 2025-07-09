@@ -1,38 +1,4 @@
 
-User Message: Can you make pie with it?
-Assistant: Yes, pie can be made with peaches.
----
-
-User Message: What are some other fruits?
-Assistant: Other fruits include:
-
-*   Orange
-*   Banana
-*   Grape
-*   Strawberry
-*   Blueberry
-*   Mango
-*   Pineapple
-*   Kiwi
-*   Cherry
-*   Lemon
----
-
-User Message: What are some popular fruits to make pie with?
-Assistant: Popular fruits used to make pie include:
-
-*   Apple
-*   Cherry
-*   Blueberry
-*   Peach
-*   Strawberry
-*   Rhubarb
----
-
-User Message: What are is rhubarb?
-Assistant: Rhubarb is a herbaceous perennial plant. Its edible part is the stalk, which is tart and commonly used in desserts, particularly pies, often combined with sweeter fruits like strawberries. Botanically, it is a vegetable, though it is frequently used culinarily as a fruit.
----
-
 User Message: I'm feeling overwhelmed right now
 Assistant: I hear you. It sounds like you're feeling overwhelmed right now, and I want you to know that it's completely understandable to feel that way. It takes a lot of courage to express that.
 
@@ -67,5 +33,35 @@ Assistant: Hello there. It's good to hear from you.
 I was just thinking about our last conversation, and how you mentioned feeling a bit overwhelmed earlier. I wanted to gently check in again. How are you feeling right now, in this moment?
 
 There's no pressure to share anything you're not ready for, but I'm here to listen if you'd like to talk about what's on your mind.
+---
+
+User Message: Hi, how are you?
+Assistant: Hello there. Thank you for asking, that's very kind of you. As an AI, I don't experience feelings in the way humans do, but I'm here and ready to listen.
+
+More importantly, how are *you* doing right now? I remember you mentioned feeling overwhelmed earlier, and I want to make sure you have a space to talk about anything that might be on your mind. Is there anything you'd like to share about how you're feeling in this moment?
+---
+
+User Message: I'm good, thanks for asking
+Assistant: That's good to hear, I'm glad you're feeling good right now. Thank you for letting me know.
+
+I remember you mentioned feeling a bit overwhelmed earlier, and I just want to gently check in and say that if those feelings ever resurface, or if you ever want to talk more about what that was like, I'm here to listen without judgment. No pressure at all, just wanted to make sure you know the space is always open for you.
+---
+
+User Message: What are popular destinations in Utah?
+Assistant: Popular destinations in Utah include:
+
+*   **National Parks:** Zion National Park, Bryce Canyon National Park, Arches National Park, Canyonlands National Park, Capitol Reef National Park.
+*   **Ski Resorts:** Park City (including Park City Mountain Resort and Deer Valley Resort), Alta Ski Area, Snowbird.
+*   **Cities/Areas:** Salt Lake City, Moab, St. George.
+---
+
+User Message: What about wisconsin?
+Assistant: Popular destinations in Wisconsin include:
+
+*   **Milwaukee:** Known for its breweries, Harley-Davidson Museum, and art museums.
+*   **Madison:** The state capital, home to the University of Wisconsin-Madison and the State Capitol Building.
+*   **Door County:** A peninsula known for its scenic coastline, cherry orchards, lighthouses, and charming towns.
+*   **Wisconsin Dells:** A popular tourist area known for its water parks and natural sandstone formations.
+*   **Lake Geneva:** A resort town known for its lake activities and historic estates.
 ---
 
