@@ -3,7 +3,6 @@ from text_funcs import  log, clear_log
 from auth.throttling import apply_rate_limit
 from auth.dependencies import get_user_identifier
 from fastapi import Depends, FastAPI
-import asyncio
 from judgeval.common.tracer import Tracer
 from judgeval.integrations.langgraph import JudgevalCallbackHandler
 

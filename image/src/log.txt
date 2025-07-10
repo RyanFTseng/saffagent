@@ -1,8 +1,4 @@
 
-User Message: What are some of her traits?
-Assistant: Djeeta is the female protagonist of *Granblue Fantasy*. Her traits include determination, loyalty to her crew, and a strong sense of justice. As a player character, her specific personality can be influenced by player choices, but she is generally depicted as a skilled and compassionate leader. Her primary objective is to reach Estalucia.
----
-
 User Message: thank you!
 Assistant: You're very welcome. I'm glad I could be of some help.
 
@@ -78,5 +74,9 @@ Assistant: Koreatown, Los Angeles, offers numerous specific food locations. Nota
 *   **Hae Jang Chon:** All-you-can-eat Korean BBQ.
 *   **Dan Sung Sa:** A pocha (Korean pub) known for traditional Korean dishes and drinks.
 *   **Sun Nong Dan:** Famous for galbi jjim (braised short ribs) and other hearty stews.
+---
+
+User Message: What is typescript?
+Assistant: TypeScript is an open-source programming language developed by Microsoft. It is a superset of JavaScript, meaning it builds upon JavaScript by adding optional static typing. Its primary purpose is to enable the development of large-scale JavaScript applications by providing tools for type checking during development, which can help catch errors before runtime.
 ---
 

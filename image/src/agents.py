@@ -10,7 +10,7 @@ from google.cloud import aiplatform
 from typing_extensions import TypedDict
 from text_funcs import log, clear_log, read_log
 from judgeval.common.tracer import Tracer
-from judgeval.scorers import AnswerRelevancyScorer, ExecutionOrderScorer, AnswerCorrectnessScorer
+from judgeval.scorers import AnswerRelevancyScorer
 from judgeval.data import Example
 
 
@@ -93,9 +93,10 @@ def summary_agent(state: State):
     reply = llm.invoke(messages)
     log(reply.content, "summary.txt")
     #eval
-    ans =  "popular dishes: 1. Chef's Special 2. Seafood Platter 3. Vegan Delight"
+    """Summarize user chat history"""
+    ans =  "The user asked questions and was responded to with an answer. The current query is asked by the user"
     example = Example(
-        input="Get popular menu items for a restaurant",
+        input="Summarize the chat history",
         actual_output=ans
     )
     judgment.async_evaluate(

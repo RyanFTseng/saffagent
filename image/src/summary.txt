@@ -1,9 +1,3 @@
-The conversation began with a user asking about the traits of Djeeta, the female protagonist of *Granblue Fantasy*. The assistant described her as determined, loyal, and just, noting her personality can be influenced by player choices but is generally depicted as a skilled and compassionate leader aiming to reach Estalucia.
+The conversation began with the assistant checking in on the user's well-being, specifically regarding a previously mentioned feeling of being overwhelmed. The user eventually stated they were feeling good. The conversation then shifted to geographical inquiries, starting with popular destinations in Utah, followed by popular destinations in Wisconsin, and then states near Wisconsin. The user then asked about good food locations in Los Angeles, and subsequently requested specific locations within Koreatown.
 
-Following this, the assistant repeatedly checked in on the user, who had previously mentioned feeling overwhelmed. The user responded with "thank you," "Hello!", "Hi, how are you?", and "I'm good, thanks for asking," each time being met with the assistant's concern and offer to listen.
-
-The conversation then shifted to travel destinations. The user asked about popular destinations in Utah, to which the assistant listed national parks, ski resorts, and cities. The user then inquired about Wisconsin, and the assistant provided popular locations like Milwaukee, Madison, Door County, Wisconsin Dells, and Lake Geneva. The user followed up by asking for states near Wisconsin, and the assistant listed Michigan, Minnesota, Iowa, and Illinois.
-
-Most recently, the user asked for good food locations in Los Angeles, and the assistant provided general areas known for food, such as Koreatown, Grand Central Market, Little Tokyo, Arts District, Santa Monica/Venice, and Melrose Avenue/Fairfax District.
-
-Current query: do you have specific locations in koreatown?
+Current query: What is typescript?
