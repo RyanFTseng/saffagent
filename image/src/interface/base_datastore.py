@@ -16,5 +16,5 @@ class BaseDatastore(ABC):
         pass
 
     @abstractmethod
-    def search(self, query: str, top_k: int = 5) -> List[str]
+    def search(self, query: str, top_k: int = 5) -> List[str]:
         pass
