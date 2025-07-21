@@ -5,6 +5,8 @@ from interface.base_datastore import BaseDatastore, DataItem
 from lancedb.table import Table
 import pyarrow as pa
 from concurrent.futures import ThreadPoolExecutor
+from google.cloud import aiplatform
+from vertexai.generative_models import GenerativeModel
 
 load_dotenv()
 

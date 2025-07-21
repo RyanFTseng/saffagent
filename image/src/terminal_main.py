@@ -1,49 +1,61 @@
-from agents import graph, BaseModel
-from text_funcs import  log, clear_log
+import glob
+import json
+import os
+from typing import List
+from rag_pipeline import RAGPipeline
+from create_parser import create_parser
 
-#terminal run
+from impl import Datastore, Indexer, Retriever, ResponseGenerator, Evaluator
 
-def run_chatbot():
-    #initialize state to hold chat history
-    #Example state:
-    #{
-    #"messages": [
-    #    {"role": "user", "content": "Hi"},
-    #    {"role": "assistant", "content": "Hello! How can I help you?"},
-    #    {"role": "user", "content": "What's the weather today?"}
-    #]
-    #}
-    state = {"messages": [], "message_type": None}
 
-    while True:
-        #get user input
-        user_input = input("User Message: ")
+DEFAULT_SOURCE_PATH = "../data/source/"
+DEFAULT_EVAL_PATH = "../data/eval/test_questions.json"
 
-        #user controlled exit
-        if user_input  == "exit":
-            print("Bye")
-            break
 
-        if user_input == "clear":
-            clear_log("log.txt")
-            print("Chat log cleared")
-            user_input = input("User Message: ")
+def create_pipeline() -> RAGPipeline:
+    """Create and return a new RAG Pipeline instance with all components."""
+    datastore = Datastore()
+    indexer = Indexer()
+    retriever = Retriever(datastore=datastore)
+    response_generator = ResponseGenerator()
+    evaluator = Evaluator()
+    return RAGPipeline(datastore, indexer, retriever, response_generator, evaluator)
 
-        #add user message to state
-        state["messages"] = state.get("messages", []) + [
-            {"role": "user", "content": user_input}
-            ]
 
-        #call llm using state
-        state =graph.invoke(state)
+def main():
+    parser = create_parser()  # Create the CLI parser
+    args = parser.parse_args()
+    pipeline = create_pipeline()
 
-        #print messages in state added by llm/user
-        if state.get("messages") and len(state["messages"]) >0:
-            last_message = state["messages"][-1]
-            log("User Message: " + user_input, "log.txt")
-            log(f"Assistant: {last_message.content}", "log.txt")
-            log("---\n", "log.txt")
-            print(f"Assistant: {last_message.content}")
+    # Process source paths and eval path
+    source_path = args.path if args.path else DEFAULT_SOURCE_PATH
+    eval_path = args.eval_file if args.eval_file else DEFAULT_EVAL_PATH
+    document_paths = get_files_in_directory(source_path)
+
+    # Execute commands
+    if args.command in ["reset", "run"]:
+        print("🗑️  Resetting the database...")
+        pipeline.reset()
+
+    if args.command in ["add", "run"]:
+        print(f"🔍 Adding documents: {', '.join(document_paths)}")
+        pipeline.add_documents(document_paths)
+
+    if args.command in ["evaluate", "run"]:
+        print(f"📊 Evaluating using questions from: {eval_path}")
+        with open(eval_path, "r") as file:
+            sample_questions = json.load(file)
+        pipeline.evaluate(sample_questions)
+
+    if args.command == "query":
+        print(f"✨ Response: {pipeline.process_query(args.prompt)}")
+
+
+def get_files_in_directory(source_path: str) -> List[str]:
+    if os.path.isfile(source_path):
+        return [source_path]
+    return glob.glob(os.path.join(source_path, "*"))
+
 
 if __name__ == "__main__":
-    run_chatbot()
+    main()

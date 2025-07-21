@@ -3,5 +3,13 @@
 venv
 .vs
 keys
-saffagent-frontend/node_modules
 node_modules
+image/data/source
+image/src/__pycache__
+image/src/impl/__pycache__
+
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/

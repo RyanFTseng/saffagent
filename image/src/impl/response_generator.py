@@ -1,6 +1,6 @@
 from typing import List
 from interface.base_response_generator import BaseResponseGenerator
-from send_post_request import send_post_request
+from .send_post_request import send_post_request
 
 
 SYSTEM_PROMPT = """
