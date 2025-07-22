@@ -6,7 +6,7 @@ from lancedb.table import Table
 import pyarrow as pa
 from concurrent.futures import ThreadPoolExecutor
 from google.cloud import aiplatform
-from vertexai.generative_models import GenerativeModel
+from vertexai.language_models import TextEmbeddingModel
 
 load_dotenv()
 
@@ -16,8 +16,8 @@ class Datastore:
 
     def __init__(self):
         aiplatform.init(project="746472204967", location="us-west1")
-        self.vector_dimensions = 3072
-        self.embedding_model = GenerativeModel("text-embedding-004")
+        self.vector_dimensions = 768
+        self.embedding_model = TextEmbeddingModel.from_pretrained("text-embedding-004")
         self.vector_db = lancedb.connect(self.DB_PATH)
         self.table: Table = self._get_table()
 
@@ -46,12 +46,15 @@ class Datastore:
         return self.table
     
     def get_vector(self, content: str) -> List[float]:
-        """Get embedding vector from Gemini embedding model"""
-        response = self.embedding_model.generate_content(
-            content,
-            generation_config={"task_type": "RETRIEVAL_DOCUMENT"}
-        )
-        return response.embedding
+        try:
+            if len(content.split()) > 400:
+                content = ' '.join(content.split()[:400])
+                
+            embeddings = self.embedding_model.get_embeddings([content])
+            return embeddings[0].values
+        except Exception as e:
+            print(f"Error generating embedding: {e}")
+            raise
     
     def add_items(self, items: List[DataItem]) -> None:
 
