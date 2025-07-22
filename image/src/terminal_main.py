@@ -4,9 +4,10 @@ import os
 from typing import List
 from rag_pipeline import RAGPipeline
 from create_parser import create_parser
-
+from dotenv import load_dotenv
 from impl import Datastore, Indexer, Retriever, ResponseGenerator, Evaluator
 
+load_dotenv()
 
 DEFAULT_SOURCE_PATH = "../data/source/"
 DEFAULT_EVAL_PATH = "../data/eval/test_questions.json"

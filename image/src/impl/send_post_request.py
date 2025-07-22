@@ -11,3 +11,4 @@ def send_post_request(system_message, user_message):
         print("Response:", response.text)
     except Exception as e:
         print(f"Error: {e}")
+    return response.json()["response"]
